@@ -1,11 +1,18 @@
 #!/bin/bash
 
+#placeholder value for testing
+logoutstatus[1]="0"
+
 #appends the log file whenever a file is logged in or out of the repository
-log(file) {
-	if [$logoutstatus=1]
-		cat >> file " was logged out"
-	fi
-	if [$logoutstatus=0]
-		cat >> file " was logged in"
+log () {
+	if [ ${logoutstatus[$1]} -eq "1" ]
+	then
+		echo $1 "was logged in by" $USER "at" $(date) >> log.txt
+	elif [ ${logoutstatus[$1]} -eq "0" ]
+	then
+		echo $1 "was logged out by" $USER "at" $(date) >> log.txt
 	fi
 }
+
+#function test
+log 1
