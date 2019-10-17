@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#. ./logmaker.sh
-#. ./showrepo.sh
+. ./logmaker.sh
+. ./showrepo.sh
 
 #use select for top menu choices!!
 
