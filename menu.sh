@@ -68,7 +68,7 @@ logFileOut(){
 #STARTING MENU
 
 #use select for top menu choices!!
-echo "Hello " $USER " what action would you like to perform?"
+echo "Hello" $USER "what action would you like to perform?"
 echo "1) Add a file"
 echo "2) Edit a file" #this invloves 'logging' it out - selecting this leads to showing all the files and user picks one to log out
 echo "3) View the project log" #to see the comments other users have made about their edits? Or who has logged out what
@@ -76,19 +76,22 @@ echo "3) View the project log" #to see the comments other users have made about 
 
 while [[ "$action" != "1" && "$action" != "2" && "$action" != "3" ]]
 do 
-	read -p "Enter 1) 2) or 3) to do action: " action
+	read -p "Enter 1), 2), or 3) to do action: " action
 	case ${action} in
 		"1")
-			echo -n "You have chose to add a file." 
-			#add file func?
+			echo "You have chose to add a file." 
+			read -p "What is the name of the file you want to create? " filetocreate
+			touch $filetocreate
+			echo $filetocreate "has been created"
 			;;
 		"2")
-			echo -n "You have chose to edit a file."
+			echo "You have chose to edit a file."
 			filedisplay
+			logFileOut
 			;;
 		"3")
-			echo -n "You have chosen to view the project log"
-			#show the log file contents
+			echo "You have chosen to view the project log"
+			cat log.txt
 			;;
 		*)
 			echo "That is not a valid action choice."
