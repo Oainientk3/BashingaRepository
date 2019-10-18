@@ -8,10 +8,7 @@ createArchive()
 	mkdir $dirname
 
 	# copy files into this dir
-	# if not in a project folder it tried to copy ./ and error happens..
-
-	#./project is hard coded 
-	cp -r ./project ./$dirname/ 
+	cp -r ./ ../$dirname/ 
 
 	#create archive of the file
 	tar -zcvf $dirname.tar $dirname
