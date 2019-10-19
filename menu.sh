@@ -5,7 +5,7 @@
 
 #tests if a file (sorted position of which is referred to by the first parameter) is of wanted file type (second parameter)
 testfiletype(){
-	if [ $(ls -l | head -$[$1+1] | tail -1 | head -c 1) = "$2" ]
+	if [ $(ls -lq | head -$[$1+1] | tail -1 | head -c 1) = "$2" ]
 	then
 		echo "1"
 		return "1"
@@ -25,11 +25,11 @@ filedisplay(){
 	#additionally initialises a variable corresponding to each file, which keeps track of whether the file is logged in or out
 	#will not properly handle files with delimiter characters in their titles due to the parsing of ls -1
 	i="1"
-	while [ $i -lt $[$(ls -1 | wc -l)+1] ]
+	while [ $i -lt $[$(ls -1q | wc -l)+1] ]
 	do
 		if [ $(testfiletype $i -) -eq "1" ]
 		then
-			echo -n $i") "; ls -1 | head -$i | tail -1
+			echo -n $i") "; ls -1q | head -$i | tail -1
 			if [ -z "${logoutstatus[$i]}" ]
 			then
 				logoutstatus[$i]=0
@@ -48,13 +48,13 @@ logFileOut(){
 	case ${logoutstatus[$choice]} in
 		"0")
 			echo -n "You have logged in to " 
-			ls -1 | head -$choice | tail -1
+			ls -1q | head -$choice | tail -1
 			logoutstatus[$choice]="1" 
 			log "$choice"
 			;;
 		"1")
 			echo -n "You have logged out of "
-			ls -1 | head -$choice | tail -1 
+			ls -1q | head -$choice | tail -1 
 			logoutstatus[$choice]="0"
 			log "$choice"
 			;;
