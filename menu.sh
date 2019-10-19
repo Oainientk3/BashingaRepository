@@ -2,6 +2,8 @@
 
 . ./logmaker.sh
 . ./showrepo.sh
+. ./zipproject.sh
+. ./editfile.sh
 
 #tests if a file (sorted position of which is referred to by the first parameter) is of wanted file type (second parameter)
 testfiletype(){
@@ -66,9 +68,8 @@ logFileOut(){
 
 
 
-#STARTING MENU
-
-#use select for top menu choices!!
+#FILE MENU
+#grants access to all file-related options
 
 fileMenu(){
 	echo "Hello," $USER "what action would you like to perform?"
@@ -109,7 +110,7 @@ fileMenu(){
 }
 
 startMenu(){
-	echo "Would you like to change your working repository (currently $repo_location) or manage files?"
+	echo "Would you like to change your working repository (currently $PWD), manage files, or ?"
 	select action in "Change repo" "Manage files" "Quit"
 	do
 		case ${action} in
