@@ -13,6 +13,7 @@ log(){
 		read -p "Would you like to edit the file you just logged into? (yes/no)" editchoice
 		if [[ "$editchoice" == "yes" || "$editchoice" == "Yes" || "$editchoice" == "YES" ]]; then
 			fileedit
+			autobackup
 		elif [[ "$editchoice" == "no" || "$editchoice" == "No" || "$editchoice" == "NO" ]]; then
 			return
 		else
