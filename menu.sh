@@ -70,9 +70,9 @@ logFileOut(){
 
 #use select for top menu choices!!
 
-startMenu(){
+fileMenu(){
 	echo "Hello," $USER "what action would you like to perform?"
-	select action in "Add file" "Edit file" "View project log" "Quit"
+	select action in "Add file" "Edit file" "View project log" "Quit from current menu"
 	do 
 		case ${action} in
 			"Add file")
@@ -80,29 +80,55 @@ startMenu(){
 				read -p "What is the name of the file you want to create? " filetocreate
 				touch $filetocreate
 				echo $filetocreate "has been created"
-				echo "returning to top menu"
-				echo "What action would you like to perform?"
+				echo "returning to file menu"
+				echo "Enter 1 to add a file, 2 to edit a file, 3 to view the project log, and 4 to quit the current menu"
 				;;
 			"Edit file")
 				echo "You have chose to edit a file."
 				filedisplay
 				logFileOut
-				echo "returning to top menu"
-				echo "What action would you like to perform?"
+				echo "returning to file menu"
+				echo "Enter 1 to add a file, 2 to edit a file, 3 to view the project log, and 4 to quit the current menu"
 				;;
 			"View project log")
 				echo "You have chosen to view the project log"
 				cat log.txt
-				echo "returning to top menu"
-				echo "What action would you like to perform?"
+				echo "returning to file menu"
+				echo "Enter 1 to add a file, 2 to edit a file, 3 to view the project log, and 4 to quit the current menu"
 				;;
-			"Quit")
+			"Quit from current menu")
 				break
 				;;
 			*)
 				echo "That is not a valid action choice."
 				echo "returning to top menu"
-				echo "What action would you like to perform?"
+				echo "Enter 1 to add a file, 2 to edit a file, 3 to view the project log, and 4 to quit the current menu"
+				;;
+		esac
+	done
+}
+
+startMenu(){
+	echo "Would you like to change your working repository (currently $repo_location) or manage files?"
+	select action in "Change repo" "Manage files" "Quit"
+	do
+		case ${action} in
+			"Change repo")
+				changeRepo
+				echo "returning to start menu"
+				echo "1 - Change repo, 2 - Manage files, 3 - Quit"
+				;;
+			"Manage files")
+				fileMenu
+				echo "returning to start menu"
+				echo "1 - Change repo, 2 - Manage files, 3 - Quit"
+				;;
+			"Quit")
+				break
+				;;
+			*)
+				echo "That is not a valid option"
+				echo "1 - Change repo, 2 - Manage files, 3 - Quit"
 				;;
 		esac
 	done
