@@ -72,12 +72,12 @@ backup(){
 	case ${backupstatus[$choice]} in
 		"0")
 			echo -n "#### Create A Backup ####"
-			source ./BackupandRollback.sh
+			source ./Backup.sh
 			backupstatus{$choice}="1"
 			;;
 		"1")
 			echo -n "#### Rollback to a previous version ####"
-			source ./BackupandRollback.sh
+			source ./Rollback.sh
 			backupstatus{$choice}="1"
 			;;
 		*)
