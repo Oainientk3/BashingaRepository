@@ -50,11 +50,13 @@ logFileOut(){
 			echo -n "You have logged in to " 
 			ls -1 | head -$choice | tail -1
 			logoutstatus[$choice]="1" 
+			log "$choice"
 			;;
 		"1")
 			echo -n "You have logged out of "
 			ls -1 | head -$choice | tail -1 
 			logoutstatus[$choice]="0"
+			log "$choice"
 			;;
 		*)
 			echo "logout status of that item is unknown"
@@ -64,39 +66,46 @@ logFileOut(){
 
 
 
-
 #STARTING MENU
 
 #use select for top menu choices!!
-echo "Hello" $USER "what action would you like to perform?"
-echo "1) Add a file"
-echo "2) Edit a file" #this invloves 'logging' it out - selecting this leads to showing all the files and user picks one to log out
-echo "3) View the project log" #to see the comments other users have made about their edits? Or who has logged out what
 
+startMenu(){
+	echo "Hello," $USER "what action would you like to perform?"
+	select action in "Add file" "Edit file" "View project log" "Quit"
+	do 
+		case ${action} in
+			"Add file")
+				echo "You have chose to add a file." 
+				read -p "What is the name of the file you want to create? " filetocreate
+				touch $filetocreate
+				echo $filetocreate "has been created"
+				echo "returning to top menu"
+				echo "What action would you like to perform?"
+				;;
+			"Edit file")
+				echo "You have chose to edit a file."
+				filedisplay
+				logFileOut
+				echo "returning to top menu"
+				echo "What action would you like to perform?"
+				;;
+			"View project log")
+				echo "You have chosen to view the project log"
+				cat log.txt
+				echo "returning to top menu"
+				echo "What action would you like to perform?"
+				;;
+			"Quit")
+				break
+				;;
+			*)
+				echo "That is not a valid action choice."
+				echo "returning to top menu"
+				echo "What action would you like to perform?"
+				;;
+		esac
+	done
+}
 
-while [[ "$action" != "1" && "$action" != "2" && "$action" != "3" ]]
-do 
-	read -p "Enter 1), 2), or 3) to do action: " action
-	case ${action} in
-		"1")
-			echo "You have chose to add a file." 
-			read -p "What is the name of the file you want to create? " filetocreate
-			touch $filetocreate
-			echo $filetocreate "has been created"
-			;;
-		"2")
-			echo "You have chose to edit a file."
-			filedisplay
-			logFileOut
-			;;
-		"3")
-			echo "You have chosen to view the project log"
-			cat log.txt
-			;;
-		*)
-			echo "That is not a valid action choice."
-			;;
-	esac
-done
-
-
+startMenu
